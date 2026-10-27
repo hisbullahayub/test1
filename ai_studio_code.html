@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FriendSMP Season 3 — Official Token Mode Network</title>
+  <meta name="description" content="Official website for FriendSMP Season 3. Pure Java Token Mode with custom enchants, mining, live player detection, and zero ranks.">
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Header / Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand-logo">
+        <img src="logo.png" alt="FriendSMP Logo" class="logo-img animated-logo" onerror="this.style.display='none'">
+        <span class="brand-text">FRIEND<span class="highlight">SMP</span> <span class="tag-badge">S3</span></span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#leaderboards">Leaderboard</a>
+        <a href="#staff">Staff Team</a>
+        <a href="#rules">Rules & FAQ</a>
+        <a href="https://dsc.gg/friendsmpp" target="_blank" class="discord-nav-link">Discord</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="btn btn-primary" onclick="copyServerIP()">
+          <span id="nav-btn-text">friendsmp.ink</span>
+          <span class="copy-badge">COPY</span>
+        </button>
+        <button class="btn btn-login" onclick="openLoginModal()" id="nav-login-btn">
+          Log In
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-content">
+      <div class="hero-logo-box">
+        <img src="logo.png" alt="FriendSMP FS Crown" class="hero-logo animated-logo" onerror="this.style.display='none'">
+      </div>
+
+      <div class="hero-pill">
+        <span class="pulse-dot"></span>
+        <span id="live-hero-status">SEASON 3 TOKEN MODE IS LIVE &bull; JAVA ONLY</span>
+      </div>
+
+      <h1 class="hero-title">FRIENDSMP <span class="gradient-text">TOKEN MODE</span></h1>
+      <p class="hero-subtext">
+        Welcome to FriendSMP Season 3! Jump into our custom token world, mine with friends, upgrade your custom enchants, and climb the leaderboard.
+        <strong>Completely free-to-play with zero ranks.</strong>
+      </p>
+
+      <!-- Server IP Box (Clean friendsmp.ink, zero direct node clutter) -->
+      <div class="server-ip-box">
+        <div class="ip-info">
+          <span class="ip-label">MINECRAFT JAVA SERVER IP</span>
+          <span class="ip-address" id="main-server-ip">friendsmp.ink</span>
+        </div>
+        <div class="ip-action-group">
+          <button class="btn btn-copy" onclick="copyServerIP()">
+            <span id="copy-status-text">Click to Copy IP</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="#leaderboards" class="btn btn-hero-primary">Server Leaderboard</a>
+        <a href="https://dsc.gg/friendsmpp" target="_blank" class="btn btn-hero-discord">Join Official Discord</a>
+      </div>
+
+      <div class="hero-stats-row">
+        <div class="stat-item">
+          <span class="stat-number" id="real-players-count">Detecting...</span>
+          <span class="stat-title">Real Players Online</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">Token Mode</span>
+          <span class="stat-title">Custom Economy</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">Java 1.20 - 1.26+</span>
+          <span class="stat-title">Supported Version</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-number">Zero Ranks</span>
+          <span class="stat-title">100% Equal Play</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real-Time Leaderboards (Top Miners, Top Kills, Top Deaths, Top Mobs Kills, Top Walk) -->
+  <section id="leaderboards" class="section dark-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">OFFICIAL SERVER LEADERBOARDS</h2>
+        <p class="section-subtitle">Real players tracked live on FriendSMP. Stats update continuously.</p>
+      </div>
+
+      <div class="category-tabs">
+        <button class="tab-btn active" onclick="switchCategory('miners', this)">Top Miners</button>
+        <button class="tab-btn" onclick="switchCategory('kills', this)">Top Kills</button>
+        <button class="tab-btn" onclick="switchCategory('deaths', this)">Top Deaths</button>
+        <button class="tab-btn" onclick="switchCategory('mobkills', this)">Top Mobs Kills</button>
+        <button class="tab-btn" onclick="switchCategory('walk', this)">Top Walk</button>
+      </div>
+
+      <div class="table-container">
+        <table class="leaderboard-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Player Name</th>
+              <th>Status</th>
+              <th>Score / Stat</th>
+              <th>Details</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-body"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- Staff Team Section (Owners Tier & Development Tier) -->
+  <section id="staff" class="section">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">FRIENDSMP STAFF TEAM</h2>
+        <p class="section-subtitle">The dedicated leadership and development team behind FriendSMP</p>
+      </div>
+
+      <!-- TIER 1: OWNERS (Both owners side-by-side) -->
+      <div class="tier-block">
+        <div class="tier-title-row">
+          <span class="tier-badge badge-owner">👑 Server Owners</span>
+          <span class="tier-desc">Network leadership and founders</span>
+        </div>
+        <div class="staff-owners-grid">
+          <div class="staff-card staff-card-owner">
+            <div class="staff-header-row">
+              <img src="https://mc-heads.net/avatar/mystelwyn/80" alt="mystelwyn" class="staff-avatar" onerror="this.src='https://mc-heads.net/avatar/MHF_Steve/80'">
+              <div class="staff-info">
+                <h4>mystelwyn</h4>
+                <span class="staff-role role-owner">Server Owner</span>
+                <span class="staff-subtitle">Co-Owner & Network Lead</span>
+              </div>
+            </div>
+            <p class="staff-desc">Server Owner and Founder of FriendSMP. Oversees server vision, community direction, and network development.</p>
+            <div class="staff-footer">
+              <span class="footer-label">Discord:</span>
+              <span class="staff-discord" onclick="copyDiscord('mystelwyn')">@mystelwyn</span>
+            </div>
+          </div>
+
+          <div class="staff-card staff-card-owner">
+            <div class="staff-header-row">
+              <img src="https://mc-heads.net/avatar/Habib_01/80" alt="Habib_01" class="staff-avatar" onerror="this.src='https://mc-heads.net/avatar/MHF_Steve/80'">
+              <div class="staff-info">
+                <h4>Habib_01</h4>
+                <span class="staff-role role-owner">Server Owner</span>
+                <span class="staff-subtitle">Co-Owner & Infrastructure</span>
+              </div>
+            </div>
+            <p class="staff-desc">Server Owner of FriendSMP. Manages operations, community hosting, network infrastructure, and server stability.</p>
+            <div class="staff-footer">
+              <span class="footer-label">Discord:</span>
+              <span class="staff-discord" onclick="copyDiscord('habib_01')">@habib_01</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TIER 2: DEVELOPER -->
+      <div class="tier-block" style="margin-top: 2.5rem;">
+        <div class="tier-title-row">
+          <span class="tier-badge badge-dev">💻 Development Team</span>
+          <span class="tier-desc">Bot architecture and technical integrations</span>
+        </div>
+        <div class="staff-dev-grid">
+          <div class="staff-card staff-card-dev">
+            <div class="staff-header-row">
+              <img src="https://mc-heads.net/avatar/X_HER0/80" alt="X_HER0" class="staff-avatar">
+              <div class="staff-info">
+                <h4>X_HER0 <span class="real-acc-tag">Real Account</span></h4>
+                <span class="staff-role role-dev">Discord Developer</span>
+                <span class="staff-subtitle">Bot & Integrations Lead</span>
+              </div>
+            </div>
+            <p class="staff-desc">Discord Developer for FriendSMP. Builds bots, community integrations, automated systems, and web tools.</p>
+            <div class="staff-footer">
+              <span class="footer-label">Discord:</span>
+              <span class="staff-discord" onclick="copyDiscord('x_her0.dev')">@x_her0.dev</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Rules Section -->
+  <section id="rules" class="section dark-alt">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">SERVER RULES & GUIDELINES</h2>
+        <p class="section-subtitle">Fair play policies for FriendSMP Season 3</p>
+      </div>
+
+      <div class="rules-grid">
+        <div class="rule-box">
+          <h4>Rule 1: Fair Play & Client Rules</h4>
+          <p>No hacked clients, x-ray, baritone, or autoclickers (>20 CPS). Play fair and keep games fun for everyone.</p>
+        </div>
+        <div class="rule-box">
+          <h4>Rule 2: No Glitch Exploitation</h4>
+          <p>If you find a token duplication or economy glitch, report it to staff immediately. Exploiting bugs results in a ban.</p>
+        </div>
+        <div class="rule-box">
+          <h4>Rule 3: Respectful Chat</h4>
+          <p>Treat everyone with respect. Toxicity, harassment, advertising other servers, or scamming is strictly prohibited.</p>
+        </div>
+        <div class="rule-box">
+          <h4>Rule 4: Zero Pay-to-Win Ranks</h4>
+          <p>FriendSMP has no store and no ranks. All players start equal and rank up purely through grinding.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-brand">
+        <span class="brand-text">FRIEND<span class="highlight">SMP</span> (Season 3)</span>
+        <p>Not affiliated with Mojang Studios or Microsoft.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#leaderboards">Leaderboard</a>
+        <a href="#staff">Staff Team</a>
+        <a href="#rules">Rules & FAQ</a>
+        <a href="https://dsc.gg/friendsmpp" target="_blank" style="color: #818cf8;">Discord Server</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Fast Minecraft Username Only Login Modal -->
+  <div id="loginModal" class="login-modal-overlay">
+    <div class="login-modal-box">
+      <span class="close-btn" onclick="closeLoginModal()">&times;</span>
+      <div class="login-modal-header">
+        <img src="logo.png" alt="FS Logo" class="modal-logo animated-logo" onerror="this.style.display='none'">
+        <h3>Player Login</h3>
+        <p>Enter your Minecraft Java username to sign in</p>
+      </div>
+
+      <form id="portal-form" onsubmit="handlePortalSubmit(event)">
+        <div class="avatar-preview-box">
+          <img id="skin-preview-img" class="skin-avatar-large" src="https://mc-heads.net/avatar/MHF_Steve/64" alt="Head">
+          <span id="skin-name-tag" class="skin-name-label">Enter Username</span>
+        </div>
+
+        <div class="form-group">
+          <label>Minecraft Java Username</label>
+          <input type="text" id="portal-username" placeholder="e.g. X_HER0" oninput="updateSkinPreview(this.value)" required maxlength="16" autocomplete="off" autofocus>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" id="portal-submit-btn">
+          Log In to FriendSMP
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
