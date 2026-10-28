@@ -7,33 +7,12 @@
  * - Real-time Mojang/mc-heads Skin Avatar Rendering
  * - Multi-Tab Navigation (Home, Rules, Vote, Staff, Apply)
  * - Server IP Copy with Feedback & Confetti (play.friendsmp.ink)
- * - Live Comments System on Announcements
  */
 
 // ================= GLOBAL STATE =================
 const STORAGE_KEY = 'friendsmp_gh_user_v2';
 
 let currentUser = null;
-let comments = [
-  {
-    author: 'Mystelwyn',
-    rank: 'OWNER',
-    text: 'Welcome to FriendSMP! Season 1 Lifesteal & Token mode is live. Hop on play.friendsmp.ink!',
-    time: '1 hour ago'
-  },
-  {
-    author: 'Habib',
-    rank: 'OWNER',
-    text: 'Smooth 20 TPS, custom token upgrades and fair play. See you guys on the battlefield 🔥',
-    time: '3 hours ago'
-  },
-  {
-    author: 'EvilThunder',
-    rank: 'MANAGER',
-    text: 'Join our official Discord for announcements, giveaways and support tickets: discord.gg/RsJBu8jEyg',
-    time: '5 hours ago'
-  }
-];
 
 // Presets for instant test accounts (Server Owners & Manager)
 const DEMO_PRESETS = {
@@ -45,7 +24,6 @@ const DEMO_PRESETS = {
 // ================= INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
   loadSavedUser();
-  renderComments();
   setupSidebarEvents();
   fetchLiveServerStats();
   fetchLiveDiscordStats();
@@ -186,8 +164,7 @@ function updateAuthUI() {
   const navLoginBtn = document.getElementById('navLoginBtn');
   const navUserChip = document.getElementById('navUserChip');
   const voteAvatar = document.getElementById('voteAvatar');
-  const voteIgnInput = document.getElementById('voteIgnInput');
-  const userVoteCount = document.getElementById('userVoteCount');
+  const voteTargetName = document.getElementById('voteTargetName');
 
   if (currentUser) {
     // Top Nav
@@ -204,9 +181,8 @@ function updateAuthUI() {
     document.getElementById('sidebarTooltip').textContent = `${currentUser.username} [${currentUser.rank}]`;
 
     // Vote tab sync
-    if (voteAvatar) voteAvatar.src = `https://mc-heads.net/avatar/${currentUser.username}/64`;
-    if (voteIgnInput) voteIgnInput.value = currentUser.username;
-    if (userVoteCount) userVoteCount.textContent = `${currentUser.votes} Votes`;
+    if (voteAvatar) voteAvatar.src = `https://mc-heads.net/avatar/${currentUser.username}/36`;
+    if (voteTargetName) voteTargetName.textContent = currentUser.username;
 
     // Profile Modal
     document.getElementById('profileAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/100`;
@@ -223,9 +199,8 @@ function updateAuthUI() {
     loggedOutSidebar.classList.remove('hidden');
     loggedInSidebar.classList.add('hidden');
 
-    if (voteAvatar) voteAvatar.src = 'https://mc-heads.net/avatar/Steve/64';
-    if (voteIgnInput) voteIgnInput.value = '';
-    if (userVoteCount) userVoteCount.textContent = '0 Votes';
+    if (voteAvatar) voteAvatar.src = 'https://mc-heads.net/avatar/Steve/36';
+    if (voteTargetName) voteTargetName.textContent = 'Guest Player';
   }
 }
 
@@ -309,60 +284,6 @@ function triggerConfetti() {
   }
 }
 
-// ================= COMMENTS SYSTEM =================
-function toggleComments() {
-  const section = document.getElementById('expandedComments');
-  const isHidden = section.classList.contains('hidden');
-  section.classList.toggle('hidden');
-  document.getElementById('readBtnTxt').textContent = isHidden ? 'Collapse Discussion' : 'Read Discussion';
-}
-
-function renderComments() {
-  const list = document.getElementById('commentsList');
-  if (!list) return;
-
-  list.innerHTML = comments
-    .map(
-      (c) => `
-    <div class="comment-card">
-      <img src="https://mc-heads.net/avatar/${c.author}/32" alt="${c.author}" onerror="this.src='https://mc-heads.net/avatar/Steve/32'" />
-      <div>
-        <div class="c-head">
-          <span style="font-family: monospace;">${c.author}</span>
-          <span class="badge-tag">[${c.rank}]</span>
-          <span style="font-size: 10px; color: #6b7280; margin-left: 6px;">${c.time}</span>
-        </div>
-        <p>${c.text}</p>
-      </div>
-    </div>
-  `
-    )
-    .join('');
-
-  document.getElementById('commentsCountTxt').textContent = comments.length;
-  document.getElementById('commentsHeaderCount').textContent = comments.length;
-}
-
-function submitComment(e) {
-  e.preventDefault();
-  const input = document.getElementById('commentInput');
-  const text = input.value.trim();
-  if (!text) return;
-
-  const author = currentUser ? currentUser.username : 'GuestPlayer';
-  const rank = currentUser ? currentUser.rank : 'PLAYER';
-
-  comments.unshift({
-    author,
-    rank,
-    text,
-    time: 'Just now'
-  });
-
-  input.value = '';
-  renderComments();
-}
-
 // ================= RULES SEARCH FILTER =================
 function filterRules() {
   const query = document.getElementById('ruleSearch').value.toLowerCase();
@@ -374,19 +295,13 @@ function filterRules() {
   });
 }
 
-// ================= VOTE REWARDS =================
-function recordVote(siteName) {
-  const ignInput = document.getElementById('voteIgnInput');
-  const ign = (currentUser ? currentUser.username : ignInput.value).trim();
-
-  if (!ign) {
-    alert('Please enter your Minecraft In-Game Name (IGN) before voting!');
-    return;
-  }
+// ================= VOTE REWARDS (Matches image_d125f41d.png) =================
+function recordVote(voteNum, url) {
+  const ign = currentUser ? currentUser.username : 'Guest Player';
 
   if (currentUser) {
-    currentUser.votes += 1;
-    currentUser.coins += 500;
+    currentUser.votes = (currentUser.votes || 0) + 1;
+    currentUser.coins = (currentUser.coins || 0) + 500;
     currentUser.tokens = (currentUser.tokens || 0) + 50;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
@@ -395,13 +310,23 @@ function recordVote(siteName) {
   }
 
   const alertBox = document.getElementById('voteAlert');
-  alertBox.classList.remove('hidden');
-  alertBox.innerHTML = `🎉 <strong>Vote registered for ${ign}!</strong> Rewarded <strong>+500 Coins & +50 Tokens</strong> on ${siteName}.`;
+  if (alertBox) {
+    alertBox.classList.remove('hidden');
+    alertBox.innerHTML = `🎉 <strong>Vote #${voteNum} registered for ${ign}!</strong> You received <strong>1 Vote Key + 500 Coins + 50 Tokens</strong>!`;
+    setTimeout(() => {
+      alertBox.classList.add('hidden');
+    }, 4500);
+  }
+
   triggerConfetti();
 
-  setTimeout(() => {
-    alertBox.classList.add('hidden');
-  }, 4000);
+  if (url) {
+    try {
+      window.open(url, '_blank');
+    } catch (e) {
+      console.log('Navigated vote', url);
+    }
+  }
 }
 
 // ================= APPLICATIONS =================
