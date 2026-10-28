@@ -1,11 +1,41 @@
 /**
  * FriendSMP - Standalone JavaScript for GitHub Pages
+ * Features:
+ * - Real-Time Server Player Count using Backend API (uae-1.royalnode.cloud:6684)
+ * - Real-Time Discord Online Members (discord.gg/RsJBu8jEyg)
+ * - Passwordless Minecraft Username (IGN) Authentication
+ * - Real-time Mojang/mc-heads Skin Avatar Rendering
+ * - Multi-Tab Navigation (Home, Rules, Vote, Staff, Apply)
+ * - Server IP Copy with Feedback & Confetti (play.friendsmp.ink)
+ * - Live Comments System on Announcements
  */
 
 // ================= GLOBAL STATE =================
 const STORAGE_KEY = 'friendsmp_gh_user_v2';
-let currentUser = null;
 
+let currentUser = null;
+let comments = [
+  {
+    author: 'Mystelwyn',
+    rank: 'OWNER',
+    text: 'Welcome to FriendSMP! Season 1 Lifesteal & Token mode is live. Hop on play.friendsmp.ink!',
+    time: '1 hour ago'
+  },
+  {
+    author: 'Habib',
+    rank: 'OWNER',
+    text: 'Smooth 20 TPS, custom token upgrades and fair play. See you guys on the battlefield 🔥',
+    time: '3 hours ago'
+  },
+  {
+    author: 'EvilThunder',
+    rank: 'MANAGER',
+    text: 'Join our official Discord for announcements, giveaways and support tickets: discord.gg/RsJBu8jEyg',
+    time: '5 hours ago'
+  }
+];
+
+// Presets for instant test accounts (Server Owners & Manager)
 const DEMO_PRESETS = {
   mystelwyn: { rank: 'OWNER', hearts: 20, kills: 910, deaths: 45, coins: 65000, tokens: 4200 },
   habib: { rank: 'OWNER', hearts: 20, kills: 885, deaths: 52, coins: 59000, tokens: 3800 },
@@ -15,15 +45,10 @@ const DEMO_PRESETS = {
 // ================= INITIALIZATION =================
 document.addEventListener('DOMContentLoaded', () => {
   loadSavedUser();
+  renderComments();
   setupSidebarEvents();
   fetchLiveServerStats();
   fetchLiveDiscordStats();
-
-  // URL Hash Support (e.g. yoursite.com/#vote opens Vote tab)
-  const hash = window.location.hash.replace('#', '');
-  if (['home', 'rules', 'vote', 'staff', 'apply'].includes(hash)) {
-    switchTab(hash);
-  }
 
   // Refresh stats every 30 seconds
   setInterval(() => {
@@ -32,43 +57,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 30000);
 });
 
-// ================= TAB NAVIGATION =================
-function switchTab(tabId) {
-  // Update nav buttons
-  document.querySelectorAll('.nav-item').forEach((item) => {
-    item.classList.toggle('active', item.dataset.tab === tabId);
-  });
-
-  // Hide all tab panes
-  document.querySelectorAll('.tab-pane').forEach((pane) => {
-    pane.classList.remove('active');
-  });
-
-  // Show only selected active pane
-  const activePane = document.getElementById(`tab-${tabId}`);
-  if (activePane) {
-    activePane.classList.add('active');
-  }
-
-  // Close mobile menu if open
-  const mobileMenu = document.getElementById('mobileMenu');
-  if (mobileMenu) {
-    mobileMenu.classList.add('hidden');
-  }
-
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('hidden');
-}
-
 // ================= REAL SERVER & DISCORD STATS =================
 function fetchLiveServerStats() {
   const countEl = document.getElementById('livePlayersCount');
   const dotEl = document.getElementById('serverPingDot');
 
-  // Query real server status without exposing royalnode on UI
+  // Query real server status without exposing it on UI
   fetch('https://api.mcsrvstat.us/3/uae-1.royalnode.cloud:6684')
     .then((res) => res.json())
     .then((data) => {
@@ -94,6 +88,7 @@ function fetchLiveServerStats() {
 function fetchLiveDiscordStats() {
   const discordEl = document.getElementById('liveDiscordCount');
 
+  // Query real Discord invite counts
   fetch('https://discord.com/api/v9/invites/RsJBu8jEyg?with_counts=true')
     .then((res) => res.json())
     .then((data) => {
@@ -191,23 +186,30 @@ function updateAuthUI() {
   const navLoginBtn = document.getElementById('navLoginBtn');
   const navUserChip = document.getElementById('navUserChip');
   const voteAvatar = document.getElementById('voteAvatar');
+  const voteIgnInput = document.getElementById('voteIgnInput');
+  const userVoteCount = document.getElementById('userVoteCount');
+
   const voteTargetName = document.getElementById('voteTargetName');
 
   if (currentUser) {
+    // Top Nav
     navLoginBtn.classList.add('hidden');
     navUserChip.classList.remove('hidden');
     document.getElementById('navUserAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/32`;
     document.getElementById('navUsername').textContent = currentUser.username;
     document.getElementById('navUserRank').textContent = `[${currentUser.rank}]`;
 
+    // Sidebar
     loggedOutSidebar.classList.add('hidden');
     loggedInSidebar.classList.remove('hidden');
     document.getElementById('sidebarAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/36`;
     document.getElementById('sidebarTooltip').textContent = `${currentUser.username} [${currentUser.rank}]`;
 
+    // Vote tab sync
     if (voteAvatar) voteAvatar.src = `https://mc-heads.net/avatar/${currentUser.username}/36`;
     if (voteTargetName) voteTargetName.textContent = currentUser.username;
 
+    // Profile Modal
     document.getElementById('profileAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/100`;
     document.getElementById('profileUsername').textContent = currentUser.username;
     document.getElementById('profileRankBadge').textContent = currentUser.rank;
@@ -216,6 +218,7 @@ function updateAuthUI() {
     document.getElementById('statCoins').textContent = currentUser.coins.toLocaleString();
     document.getElementById('statTokens').textContent = (currentUser.tokens || 0).toLocaleString();
   } else {
+    // Logged out
     navLoginBtn.classList.remove('hidden');
     navUserChip.classList.add('hidden');
     loggedOutSidebar.classList.remove('hidden');
@@ -255,6 +258,39 @@ function closeModals(e) {
   }
 }
 
+// ================= TAB NAVIGATION =================
+function switchTab(tabId) {
+  document.querySelectorAll('.nav-item').forEach((item) => {
+    item.classList.toggle('active', item.dataset.tab === tabId);
+  });
+
+  document.querySelectorAll('.tab-pane').forEach((pane) => {
+    pane.classList.remove('active');
+    pane.style.opacity = '0';
+  });
+
+  const activePane = document.getElementById(`tab-${tabId}`);
+  if (activePane) {
+    activePane.classList.add('active');
+    activePane.style.opacity = '0';
+    requestAnimationFrame(() => {
+      activePane.style.transition = 'opacity 0.35s ease-in-out';
+      activePane.style.opacity = '1';
+    });
+  }
+
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (mobileMenu) {
+    mobileMenu.classList.add('hidden');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+}
+
 function setupSidebarEvents() {
   document.getElementById('sidebarLoginBtn').onclick = openLoginModal;
   document.getElementById('sidebarRegisterBtn').onclick = openLoginModal;
@@ -283,6 +319,60 @@ function triggerConfetti() {
   }
 }
 
+// ================= COMMENTS SYSTEM =================
+function toggleComments() {
+  const section = document.getElementById('expandedComments');
+  const isHidden = section.classList.contains('hidden');
+  section.classList.toggle('hidden');
+  document.getElementById('readBtnTxt').textContent = isHidden ? 'Collapse Discussion' : 'Read Discussion';
+}
+
+function renderComments() {
+  const list = document.getElementById('commentsList');
+  if (!list) return;
+
+  list.innerHTML = comments
+    .map(
+      (c) => `
+    <div class="comment-card">
+      <img src="https://mc-heads.net/avatar/${c.author}/32" alt="${c.author}" onerror="this.src='https://mc-heads.net/avatar/Steve/32'" />
+      <div>
+        <div class="c-head">
+          <span style="font-family: monospace;">${c.author}</span>
+          <span class="badge-tag">[${c.rank}]</span>
+          <span style="font-size: 10px; color: #6b7280; margin-left: 6px;">${c.time}</span>
+        </div>
+        <p>${c.text}</p>
+      </div>
+    </div>
+  `
+    )
+    .join('');
+
+  document.getElementById('commentsCountTxt').textContent = comments.length;
+  document.getElementById('commentsHeaderCount').textContent = comments.length;
+}
+
+function submitComment(e) {
+  e.preventDefault();
+  const input = document.getElementById('commentInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  const author = currentUser ? currentUser.username : 'GuestPlayer';
+  const rank = currentUser ? currentUser.rank : 'PLAYER';
+
+  comments.unshift({
+    author,
+    rank,
+    text,
+    time: 'Just now'
+  });
+
+  input.value = '';
+  renderComments();
+}
+
 // ================= RULES SEARCH FILTER =================
 function filterRules() {
   const query = document.getElementById('ruleSearch').value.toLowerCase();
@@ -294,7 +384,7 @@ function filterRules() {
   });
 }
 
-// ================= VOTE REWARDS =================
+// ================= VOTE REWARDS (Matches image_d125f41d.png) =================
 function recordVote(voteNum, url) {
   const ign = currentUser ? currentUser.username : 'Guest Player';
 
