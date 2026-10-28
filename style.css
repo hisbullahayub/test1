@@ -35,7 +35,6 @@ body {
   line-height: 1.5;
 }
 
-/* ================= UTILITIES & HELPERS ================= */
 .hidden {
   display: none !important;
 }
@@ -340,7 +339,7 @@ body {
   gap: 10px;
 }
 
-/* ================= HERO SECTION (Blue & Purple Gradient) ================= */
+/* ================= HERO SECTION ================= */
 .hero {
   position: relative;
   min-height: 520px;
