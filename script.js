@@ -1,20 +1,11 @@
 /**
  * FriendSMP - Standalone JavaScript for GitHub Pages
- * Features:
- * - Real-Time Server Player Count using Backend API (uae-1.royalnode.cloud:6684)
- * - Real-Time Discord Online Members (discord.gg/RsJBu8jEyg)
- * - Passwordless Minecraft Username (IGN) Authentication
- * - Real-time Mojang/mc-heads Skin Avatar Rendering
- * - Multi-Tab Navigation (Home, Rules, Vote, Staff, Apply)
- * - Server IP Copy with Feedback & Confetti (play.friendsmp.ink)
  */
 
 // ================= GLOBAL STATE =================
 const STORAGE_KEY = 'friendsmp_gh_user_v2';
-
 let currentUser = null;
 
-// Presets for instant test accounts (Server Owners & Manager)
 const DEMO_PRESETS = {
   mystelwyn: { rank: 'OWNER', hearts: 20, kills: 910, deaths: 45, coins: 65000, tokens: 4200 },
   habib: { rank: 'OWNER', hearts: 20, kills: 885, deaths: 52, coins: 59000, tokens: 3800 },
@@ -28,6 +19,12 @@ document.addEventListener('DOMContentLoaded', () => {
   fetchLiveServerStats();
   fetchLiveDiscordStats();
 
+  // URL Hash Support (e.g. yoursite.com/#vote opens Vote tab)
+  const hash = window.location.hash.replace('#', '');
+  if (['home', 'rules', 'vote', 'staff', 'apply'].includes(hash)) {
+    switchTab(hash);
+  }
+
   // Refresh stats every 30 seconds
   setInterval(() => {
     fetchLiveServerStats();
@@ -35,12 +32,43 @@ document.addEventListener('DOMContentLoaded', () => {
   }, 30000);
 });
 
+// ================= TAB NAVIGATION =================
+function switchTab(tabId) {
+  // Update nav buttons
+  document.querySelectorAll('.nav-item').forEach((item) => {
+    item.classList.toggle('active', item.dataset.tab === tabId);
+  });
+
+  // Hide all tab panes
+  document.querySelectorAll('.tab-pane').forEach((pane) => {
+    pane.classList.remove('active');
+  });
+
+  // Show only selected active pane
+  const activePane = document.getElementById(`tab-${tabId}`);
+  if (activePane) {
+    activePane.classList.add('active');
+  }
+
+  // Close mobile menu if open
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (mobileMenu) {
+    mobileMenu.classList.add('hidden');
+  }
+
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function toggleMobileMenu() {
+  document.getElementById('mobileMenu').classList.toggle('hidden');
+}
+
 // ================= REAL SERVER & DISCORD STATS =================
 function fetchLiveServerStats() {
   const countEl = document.getElementById('livePlayersCount');
   const dotEl = document.getElementById('serverPingDot');
 
-  // Query real server status without exposing it on UI
+  // Query real server status without exposing royalnode on UI
   fetch('https://api.mcsrvstat.us/3/uae-1.royalnode.cloud:6684')
     .then((res) => res.json())
     .then((data) => {
@@ -66,7 +94,6 @@ function fetchLiveServerStats() {
 function fetchLiveDiscordStats() {
   const discordEl = document.getElementById('liveDiscordCount');
 
-  // Query real Discord invite counts
   fetch('https://discord.com/api/v9/invites/RsJBu8jEyg?with_counts=true')
     .then((res) => res.json())
     .then((data) => {
@@ -167,24 +194,20 @@ function updateAuthUI() {
   const voteTargetName = document.getElementById('voteTargetName');
 
   if (currentUser) {
-    // Top Nav
     navLoginBtn.classList.add('hidden');
     navUserChip.classList.remove('hidden');
     document.getElementById('navUserAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/32`;
     document.getElementById('navUsername').textContent = currentUser.username;
     document.getElementById('navUserRank').textContent = `[${currentUser.rank}]`;
 
-    // Sidebar
     loggedOutSidebar.classList.add('hidden');
     loggedInSidebar.classList.remove('hidden');
     document.getElementById('sidebarAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/36`;
     document.getElementById('sidebarTooltip').textContent = `${currentUser.username} [${currentUser.rank}]`;
 
-    // Vote tab sync
     if (voteAvatar) voteAvatar.src = `https://mc-heads.net/avatar/${currentUser.username}/36`;
     if (voteTargetName) voteTargetName.textContent = currentUser.username;
 
-    // Profile Modal
     document.getElementById('profileAvatar').src = `https://mc-heads.net/avatar/${currentUser.username}/100`;
     document.getElementById('profileUsername').textContent = currentUser.username;
     document.getElementById('profileRankBadge').textContent = currentUser.rank;
@@ -193,7 +216,6 @@ function updateAuthUI() {
     document.getElementById('statCoins').textContent = currentUser.coins.toLocaleString();
     document.getElementById('statTokens').textContent = (currentUser.tokens || 0).toLocaleString();
   } else {
-    // Logged out
     navLoginBtn.classList.remove('hidden');
     navUserChip.classList.add('hidden');
     loggedOutSidebar.classList.remove('hidden');
@@ -231,29 +253,6 @@ function closeModals(e) {
     closeLoginModal();
     closeProfileModal();
   }
-}
-
-// ================= TAB NAVIGATION =================
-function switchTab(tabId) {
-  document.querySelectorAll('.nav-item').forEach((item) => {
-    item.classList.toggle('active', item.dataset.tab === tabId);
-  });
-
-  document.querySelectorAll('.tab-pane').forEach((pane) => {
-    pane.classList.remove('active');
-  });
-
-  const activePane = document.getElementById(`tab-${tabId}`);
-  if (activePane) {
-    activePane.classList.add('active');
-  }
-
-  document.getElementById('mobileMenu').classList.add('hidden');
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-}
-
-function toggleMobileMenu() {
-  document.getElementById('mobileMenu').classList.toggle('hidden');
 }
 
 function setupSidebarEvents() {
@@ -295,7 +294,7 @@ function filterRules() {
   });
 }
 
-// ================= VOTE REWARDS (Matches image_d125f41d.png) =================
+// ================= VOTE REWARDS =================
 function recordVote(voteNum, url) {
   const ign = currentUser ? currentUser.username : 'Guest Player';
 
