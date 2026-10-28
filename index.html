@@ -6,7 +6,7 @@
   <title>FriendSMP - Minecraft Java Server</title>
   <meta name="description" content="Join FriendSMP - The ultimate Minecraft Lifesteal & Token Java Edition server with custom economy, vote keys, and active community." />
   
-  <!-- Favicon / Logo -->
+  <!-- Favicon -->
   <link rel="icon" type="image/png" href="logo.png" />
   
   <!-- Google Fonts & Font Awesome Icons -->
@@ -202,7 +202,7 @@
             <div class="join-step-box">
               <span class="step-num step-emerald">3</span>
               <h3>Join & Play</h3>
-              <p>Hit connect and begin your adventure on FriendSMP!</p>
+              <p>Hit connect and begin your adventure on the FriendSMP server!</p>
             </div>
           </div>
         </div>
@@ -247,18 +247,27 @@
       </div>
     </section>
 
-    <!-- TAB 3: VOTE -->
+    <!-- TAB 3: VOTE (Exact replica of image_d125f41d.png) -->
     <section id="tab-vote" class="tab-pane">
       <div class="page-container">
         <div class="vote-apple-card">
+          <!-- Top Left Tag -->
           <div class="vote-tag-red">Vote</div>
+
+          <!-- Centered Title -->
           <div class="vote-title-center">
             <h1>Vote for FriendSMP!</h1>
           </div>
+
+          <!-- Emerald Key Reward Banner -->
           <div class="emerald-key-banner">
-            <div class="key-icon-wrap"><i class="fa-solid fa-key"></i></div>
+            <div class="key-icon-wrap">
+              <i class="fa-solid fa-key"></i>
+            </div>
             <p>You can receive up to <strong>6 VOTE KEYS</strong> by voting for our server!</p>
           </div>
+
+          <!-- Player IGN status bar -->
           <div class="vote-ign-bar">
             <div class="ign-left">
               <img id="voteAvatar" src="https://mc-heads.net/avatar/Steve/36" alt="Skin" />
@@ -266,25 +275,44 @@
             </div>
             <button class="btn-link" onclick="openLoginModal()">Login with IGN</button>
           </div>
+
           <div id="voteAlert" class="alert-box hidden"></div>
+
+          <!-- 6 Coral/Red Action Buttons (2 columns x 3 rows) -->
           <div class="vote-grid-6">
-            <button class="btn-vote-coral" onclick="recordVote(1, 'https://planetminecraft.com')"><span>VOTE #1</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            <button class="btn-vote-coral" onclick="recordVote(2, 'https://minecraft-mp.com')"><span>VOTE #2</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            <button class="btn-vote-coral" onclick="recordVote(3, 'https://topg.org')"><span>VOTE #3</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            <button class="btn-vote-coral" onclick="recordVote(4, 'https://best-minecraft-servers.co')"><span>VOTE #4</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            <button class="btn-vote-coral" onclick="recordVote(5, 'https://minecraftservers.org')"><span>VOTE #5</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
-            <button class="btn-vote-coral" onclick="recordVote(6, 'https://topminecraftservers.org')"><span>VOTE #6</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(1, 'https://planetminecraft.com')">
+              <span>VOTE #1</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(2, 'https://minecraft-mp.com')">
+              <span>VOTE #2</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(3, 'https://topg.org')">
+              <span>VOTE #3</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(4, 'https://best-minecraft-servers.co')">
+              <span>VOTE #4</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(5, 'https://minecraftservers.org')">
+              <span>VOTE #5</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(6, 'https://topminecraftservers.org')">
+              <span>VOTE #6</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
           </div>
+
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: STAFF -->
+    <!-- TAB 4: STAFF (Exact replica of image_02a3dcda.png) -->
     <section id="tab-staff" class="tab-pane">
       <div class="page-container space-y-staff">
+        
+        <!-- Category 1: Owner -->
         <div class="staff-category-block">
           <h2 class="staff-cat-title">Owner</h2>
           <div class="staff-cards-grid">
+            <!-- Mystelwyn -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
               <img src="https://mc-heads.net/avatar/Mystelwyn/56" alt="Mystelwyn" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
               <div class="staff-pill-info">
@@ -292,6 +320,8 @@
                 <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> mystelwyn</span>
               </div>
             </a>
+
+            <!-- Habib -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
               <img src="https://mc-heads.net/avatar/Habib/56" alt="Habib" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
               <div class="staff-pill-info">
@@ -302,9 +332,11 @@
           </div>
         </div>
 
+        <!-- Category 2: Manager -->
         <div class="staff-category-block">
           <h2 class="staff-cat-title">Manager</h2>
           <div class="staff-cards-grid">
+            <!-- EvilThunder -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
               <img src="https://mc-heads.net/avatar/EvilThunder/56" alt="EvilThunder" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
               <div class="staff-pill-info">
@@ -315,6 +347,7 @@
           </div>
         </div>
 
+        <!-- Support Box -->
         <div class="staff-support-box">
           <div>
             <h3>Need assistance from our Staff Team?</h3>
@@ -324,6 +357,7 @@
             <i class="fa-brands fa-discord"></i> Open Discord Ticket
           </a>
         </div>
+
       </div>
     </section>
 
@@ -372,7 +406,7 @@
             <h3>Play Now</h3>
             <span class="title-bar"></span>
           </div>
-          <p>Start your journey today! Join the server now to play the best Lifesteal and Token experience on Java Edition!</p>
+          <p>Start your journey today! Join the server now to play the best Lifesteal MODE and Token MODE on Java Edition!</p>
           <button class="footer-ip-btn" onclick="copyServerIp()">
             <span>PLAY.FRIENDSMP.INK</span> <i class="fa-solid fa-angles-right"></i>
           </button>
@@ -416,59 +450,52 @@
     </div>
   </footer>
 
-  <!-- ================= MINECRAFT IGN LOGIN MODAL ================= -->
+  <!-- ================= MINECRAFT IGN LOGIN MODAL (PikaNetwork Style) ================= -->
   <div id="loginModal" class="modal-overlay hidden" onclick="closeModals(event)">
-    <div class="modal-card" onclick="event.stopPropagation()">
-      <div class="modal-header-bar"></div>
-      <button class="modal-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
+    <div class="pika-login-card" onclick="event.stopPropagation()">
+      <button class="pika-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
 
-      <div class="modal-body">
-        <div class="modal-title-row">
-          <div class="modal-icon-box"><i class="fa-solid fa-gamepad"></i></div>
-          <div>
-            <h2>FriendSMP Login <span class="badge-green">Passwordless</span></h2>
-            <p>Enter your Minecraft Username (IGN) to connect your Java profile</p>
-          </div>
+      <!-- Purple Top Banner with Steve & Title -->
+      <div class="pika-modal-header">
+        <div class="pika-header-text">
+          <span class="pika-store-tag">FRIENDSMP STORE</span>
+          <h2>What's your Minecraft username?</h2>
         </div>
-
-        <div class="skin-preview-card">
-          <img id="loginSkinPreview" src="https://mc-heads.net/avatar/Steve/100" alt="Minecraft Skin" />
-          <div class="preview-info">
-            <span class="sub-label">Connecting As</span>
-            <strong id="loginPreviewName" class="player-ign">Steve</strong>
-            <span class="sub-text"><i class="fa-solid fa-shield-check text-emerald"></i> No password required • Instant sync</span>
-          </div>
+        <div class="pika-skin-box">
+          <img id="loginSkinPreview" src="https://mc-heads.net/avatar/Steve/120" alt="Minecraft Skin" onerror="this.src='https://mc-heads.net/avatar/Steve/120'" />
         </div>
+      </div>
 
+      <!-- White Bottom Section -->
+      <div class="pika-modal-body">
         <form onsubmit="handleUsernameLogin(event)">
-          <div class="form-group">
-            <label>Minecraft In-Game Name (IGN)</label>
+          <div class="pika-input-group">
             <input 
               type="text" 
               id="loginUsernameInput" 
-              placeholder="e.g. Mystelwyn, Habib, Steve" 
+              placeholder="e.g. Herobrine" 
               maxlength="16" 
               oninput="updateSkinPreview(this.value)"
               required 
             />
           </div>
 
-          <div class="quick-accounts">
-            <span>Quick Test Accounts:</span>
-            <div class="quick-btns">
+          <div class="quick-accounts" style="margin-bottom: 12px;">
+            <span style="font-size: 11px; color: #64748b;">Quick Test Accounts:</span>
+            <div class="quick-btns" style="margin-top: 4px;">
               <button type="button" onclick="selectDemoUser('Mystelwyn')">Mystelwyn [OWNER]</button>
               <button type="button" onclick="selectDemoUser('Habib')">Habib [OWNER]</button>
               <button type="button" onclick="selectDemoUser('EvilThunder')">EvilThunder [MANAGER]</button>
             </div>
           </div>
 
-          <button type="submit" class="btn-primary full-width modal-submit-btn">
-            Login With Username <i class="fa-solid fa-arrow-right"></i>
+          <button type="submit" class="pika-continue-btn">
+            Continue <i class="fa-solid fa-arrow-right"></i>
           </button>
         </form>
 
-        <p class="modal-disclaimer">
-          🔒 <strong>Password Not Required:</strong> Login is strictly via your Minecraft in-game username.
+        <p class="pika-disclaimer">
+          Your Minecraft username – no spaces or special characters, underscores are OK.
         </p>
       </div>
     </div>
