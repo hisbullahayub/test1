@@ -1,45 +1,45 @@
 /**
  * FriendSMP - Standalone JavaScript for GitHub Pages
  * Features:
+ * - Real-Time Server Player Count using Backend API (uae-1.royalnode.cloud:6684)
+ * - Real-Time Discord Online Members (discord.gg/RsJBu8jEyg)
  * - Passwordless Minecraft Username (IGN) Authentication
  * - Real-time Mojang/mc-heads Skin Avatar Rendering
- * - Multi-Tab Navigation (Home, Rules, Vote, Map, Store, Staff, Apply)
- * - Server IP Copy with Feedback & Confetti
+ * - Multi-Tab Navigation (Home, Rules, Vote, Staff, Apply)
+ * - Server IP Copy with Feedback & Confetti (play.friendsmp.ink)
  * - Live Comments System on Announcements
- * - Interactive Shopping Cart
  */
 
 // ================= GLOBAL STATE =================
-const STORAGE_KEY = 'friendsmp_gh_user';
+const STORAGE_KEY = 'friendsmp_gh_user_v2';
 
 let currentUser = null;
-let cart = [];
 let comments = [
   {
-    author: 'CyberKnight',
-    rank: 'VIP+',
-    text: 'Gg boys! Ready for the dragon fight this weekend. Purple clan is taking the egg!',
+    author: 'Mystelwyn',
+    rank: 'OWNER',
+    text: 'Welcome to FriendSMP! Season 1 Lifesteal & Token mode is live. Hop on play.friendsmp.ink!',
+    time: '1 hour ago'
+  },
+  {
+    author: 'Habib',
+    rank: 'OWNER',
+    text: 'Smooth 20 TPS, custom token upgrades and fair play. See you guys on the battlefield 🔥',
     time: '3 hours ago'
   },
   {
-    author: 'Aethelred',
-    rank: 'MVP+',
-    text: 'The blue & purple theme looks incredible! Best SMP network in 2026 🔥',
-    time: '6 hours ago'
-  },
-  {
-    author: 'Noxillio',
-    rank: 'OWNER',
-    text: 'Bedrock players can join using port 19132! See everyone at the End opening.',
-    time: '1 day ago'
+    author: 'EvilThunder',
+    rank: 'MANAGER',
+    text: 'Join our official Discord for announcements, giveaways and support tickets: discord.gg/RsJBu8jEyg',
+    time: '5 hours ago'
   }
 ];
 
-// Presets for instant test accounts
+// Presets for instant test accounts (Server Owners & Manager)
 const DEMO_PRESETS = {
-  noxillio: { rank: 'OWNER', hearts: 20, kills: 842, deaths: 61, coins: 48500 },
-  aethelred: { rank: 'MVP+', hearts: 18, kills: 512, deaths: 98, coins: 24300 },
-  cyberknight: { rank: 'VIP+', hearts: 14, kills: 219, deaths: 114, coins: 12400 }
+  mystelwyn: { rank: 'OWNER', hearts: 20, kills: 910, deaths: 45, coins: 65000, tokens: 4200 },
+  habib: { rank: 'OWNER', hearts: 20, kills: 885, deaths: 52, coins: 59000, tokens: 3800 },
+  evilthunder: { rank: 'MANAGER', hearts: 18, kills: 620, deaths: 78, coins: 34000, tokens: 1950 }
 };
 
 // ================= INITIALIZATION =================
@@ -47,7 +47,64 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSavedUser();
   renderComments();
   setupSidebarEvents();
+  fetchLiveServerStats();
+  fetchLiveDiscordStats();
+
+  // Refresh stats every 30 seconds
+  setInterval(() => {
+    fetchLiveServerStats();
+    fetchLiveDiscordStats();
+  }, 30000);
 });
+
+// ================= REAL SERVER & DISCORD STATS =================
+function fetchLiveServerStats() {
+  const countEl = document.getElementById('livePlayersCount');
+  const dotEl = document.getElementById('serverPingDot');
+
+  // Query real server status without exposing it on UI
+  fetch('https://api.mcsrvstat.us/3/uae-1.royalnode.cloud:6684')
+    .then((res) => res.json())
+    .then((data) => {
+      if (data && data.online !== undefined) {
+        const onlineCount = data.players?.online ?? 0;
+        const maxCount = data.players?.max ?? 20;
+
+        if (countEl) {
+          countEl.textContent = `${onlineCount} / ${maxCount} PLAYERS ONLINE`;
+        }
+        if (dotEl) {
+          dotEl.style.background = data.online ? '#10b981' : '#ef4444';
+          dotEl.style.boxShadow = data.online ? '0 0 8px #10b981' : '0 0 8px #ef4444';
+        }
+      }
+    })
+    .catch((err) => {
+      console.warn('Real server ping error:', err);
+      if (countEl) countEl.textContent = 'ONLINE (play.friendsmp.ink)';
+    });
+}
+
+function fetchLiveDiscordStats() {
+  const discordEl = document.getElementById('liveDiscordCount');
+
+  // Query real Discord invite counts
+  fetch('https://discord.com/api/v9/invites/RsJBu8jEyg?with_counts=true')
+    .then((res) => res.json())
+    .then((data) => {
+      if (data && data.approximate_presence_count !== undefined) {
+        const presence = data.approximate_presence_count;
+        const total = data.approximate_member_count || 22;
+        if (discordEl) {
+          discordEl.textContent = `${presence} ONLINE (${total} MEMBERS)`;
+        }
+      }
+    })
+    .catch((err) => {
+      console.warn('Discord ping error:', err);
+      if (discordEl) discordEl.textContent = 'DISCORD ONLINE';
+    });
+}
 
 // ================= AUTHENTICATION (Passwordless Minecraft IGN) =================
 function loadSavedUser() {
@@ -78,7 +135,8 @@ function handleUsernameLogin(e) {
     hearts: 10,
     kills: Math.floor(Math.random() * 30) + 5,
     deaths: Math.floor(Math.random() * 15) + 2,
-    coins: 2500
+    coins: 2500,
+    tokens: 150
   };
 
   currentUser = {
@@ -88,6 +146,7 @@ function handleUsernameLogin(e) {
     kills: preset.kills,
     deaths: preset.deaths,
     coins: preset.coins,
+    tokens: preset.tokens,
     votes: 0
   };
 
@@ -155,8 +214,8 @@ function updateAuthUI() {
     document.getElementById('profileRankBadge').textContent = currentUser.rank;
     document.getElementById('statHearts').textContent = `${currentUser.hearts} / 20`;
     document.getElementById('statKills').textContent = currentUser.kills;
-    document.getElementById('statDeaths').textContent = currentUser.deaths;
     document.getElementById('statCoins').textContent = currentUser.coins.toLocaleString();
+    document.getElementById('statTokens').textContent = (currentUser.tokens || 0).toLocaleString();
   } else {
     // Logged out
     navLoginBtn.classList.remove('hidden');
@@ -196,18 +255,15 @@ function closeModals(e) {
   if (e.target.classList.contains('modal-overlay')) {
     closeLoginModal();
     closeProfileModal();
-    closeCart();
   }
 }
 
 // ================= TAB NAVIGATION =================
 function switchTab(tabId) {
-  // Update nav link styles
   document.querySelectorAll('.nav-item').forEach((item) => {
     item.classList.toggle('active', item.dataset.tab === tabId);
   });
 
-  // Switch pane
   document.querySelectorAll('.tab-pane').forEach((pane) => {
     pane.classList.remove('active');
   });
@@ -217,7 +273,6 @@ function switchTab(tabId) {
     activePane.classList.add('active');
   }
 
-  // Close mobile menu if open
   document.getElementById('mobileMenu').classList.add('hidden');
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
@@ -233,24 +288,15 @@ function setupSidebarEvents() {
   document.getElementById('sidebarCopyIpBtn').onclick = copyServerIp;
 }
 
-// ================= COPY IP / BEDROCK =================
+// ================= COPY IP =================
 function copyServerIp() {
-  navigator.clipboard.writeText('play.friendsmp.net');
+  navigator.clipboard.writeText('play.friendsmp.ink');
   const hint = document.getElementById('heroCopyHint');
   if (hint) {
     hint.textContent = '✅ Copied to clipboard!';
     setTimeout(() => (hint.textContent = 'Click to copy Server IP'), 2000);
   }
   triggerConfetti();
-}
-
-function copyBedrockPort() {
-  navigator.clipboard.writeText('19132');
-  const txt = document.getElementById('bedrockPortTxt');
-  if (txt) {
-    txt.textContent = 'Copied!';
-    setTimeout(() => (txt.textContent = '19132'), 2000);
-  }
 }
 
 function triggerConfetti() {
@@ -268,7 +314,7 @@ function toggleComments() {
   const section = document.getElementById('expandedComments');
   const isHidden = section.classList.contains('hidden');
   section.classList.toggle('hidden');
-  document.getElementById('readBtnTxt').textContent = isHidden ? 'Collapse Details' : 'Read full post';
+  document.getElementById('readBtnTxt').textContent = isHidden ? 'Collapse Discussion' : 'Read Discussion';
 }
 
 function renderComments() {
@@ -341,6 +387,7 @@ function recordVote(siteName) {
   if (currentUser) {
     currentUser.votes += 1;
     currentUser.coins += 500;
+    currentUser.tokens = (currentUser.tokens || 0) + 50;
     try {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(currentUser));
     } catch (e) {}
@@ -349,83 +396,12 @@ function recordVote(siteName) {
 
   const alertBox = document.getElementById('voteAlert');
   alertBox.classList.remove('hidden');
-  alertBox.innerHTML = `🎉 <strong>Vote registered for ${ign}!</strong> Rewarded <strong>+500 Coins</strong> on ${siteName}.`;
+  alertBox.innerHTML = `🎉 <strong>Vote registered for ${ign}!</strong> Rewarded <strong>+500 Coins & +50 Tokens</strong> on ${siteName}.`;
   triggerConfetti();
 
   setTimeout(() => {
     alertBox.classList.add('hidden');
   }, 4000);
-}
-
-// ================= INTERACTIVE MAP CONTROLS =================
-let mapZoom = 1;
-let mapNight = false;
-
-function zoomMap(delta) {
-  mapZoom = Math.min(Math.max(mapZoom + delta, 0.8), 1.6);
-  document.getElementById('mapScreen').style.transform = `scale(${mapZoom})`;
-}
-
-function toggleMapNight() {
-  mapNight = !mapNight;
-  document.getElementById('mapScreen').style.filter = mapNight ? 'brightness(0.6) contrast(1.2)' : 'brightness(1)';
-}
-
-function focusPin(name, coords) {
-  alert(`Focused landmark: ${name} (${coords})`);
-}
-
-// ================= STORE & CART =================
-function addToCart(name, price) {
-  cart.push({ name, price });
-  updateCartUI();
-  openCart();
-}
-
-function updateCartUI() {
-  document.getElementById('cartCount').textContent = cart.length;
-  const list = document.getElementById('cartItemsList');
-
-  if (cart.length === 0) {
-    list.innerHTML = '<p class="empty-cart">Your cart is empty.</p>';
-    document.getElementById('cartTotalText').textContent = '$0.00';
-    return;
-  }
-
-  const total = cart.reduce((sum, item) => sum + item.price, 0);
-  list.innerHTML = cart
-    .map(
-      (item, idx) => `
-    <div class="cart-item-row">
-      <span>${item.name}</span>
-      <strong>$${item.price.toFixed(2)}</strong>
-    </div>
-  `
-    )
-    .join('');
-
-  document.getElementById('cartTotalText').textContent = `$${total.toFixed(2)}`;
-}
-
-function openCart() {
-  document.getElementById('cartModal').classList.remove('hidden');
-}
-
-function closeCart() {
-  document.getElementById('cartModal').classList.add('hidden');
-}
-
-function checkoutCart() {
-  if (cart.length === 0) return;
-
-  const targetIgn = currentUser ? currentUser.username : prompt('Enter your Minecraft IGN for delivery:');
-  if (!targetIgn) return;
-
-  alert(`🎉 Purchase completed for ${targetIgn}! Items will be delivered to your FriendSMP inventory in-game.`);
-  cart = [];
-  updateCartUI();
-  closeCart();
-  triggerConfetti();
 }
 
 // ================= APPLICATIONS =================
@@ -434,7 +410,7 @@ function submitApplication(e) {
   const ign = document.getElementById('applyIgn').value;
   const role = document.getElementById('applyRole').value;
 
-  alert(`✅ Thank you ${ign}! Your application for ${role} has been submitted. Our team will contact you on Discord.`);
+  alert(`✅ Thank you ${ign}! Your application for ${role} has been submitted. Our staff team will contact you on Discord.`);
   e.target.reset();
   triggerConfetti();
 }
