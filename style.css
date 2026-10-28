@@ -35,6 +35,27 @@ body {
   line-height: 1.5;
 }
 
+/* ================= CRITICAL: TAB SYSTEM (Fixes all tabs showing at once) ================= */
+.tab-pane {
+  display: none !important;
+}
+
+.tab-pane.active {
+  display: block !important;
+  animation: fadeInTab 0.25s ease-in-out;
+}
+
+@keyframes fadeInTab {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* ================= UTILITIES & HELPERS ================= */
 .hidden {
   display: none !important;
@@ -337,7 +358,7 @@ body {
   gap: 10px;
 }
 
-/* ================= HERO SECTION ================= */
+/* ================= HERO SECTION (HOME ONLY) ================= */
 .hero {
   position: relative;
   min-height: 480px;
@@ -552,9 +573,81 @@ body {
   color: #fff;
 }
 
+/* ================= HOW TO JOIN (IN HOME TAB) ================= */
+.join-card {
+  background: #141419;
+  border: 1px solid #23232c;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 30px;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.join-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.join-head h2 {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.join-head p {
+  font-size: 12px;
+  color: #9ca3af;
+}
+
+.join-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.join-step-box {
+  background: #0d0e12;
+  border: 1px solid #1f2029;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 13px;
+  margin-bottom: 10px;
+}
+
+.step-purple { background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4); }
+.step-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
+.step-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
+
+.join-step-box h3 {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.join-step-box p {
+  font-size: 12px;
+  color: #9ca3af;
+  line-height: 1.5;
+}
+
 /* ================= PAGE CONTAINERS ================= */
 .page-container {
-  max-width: 1100px;
+  max-width: 1000px;
   margin: 0 auto;
   padding: 30px 20px 60px;
 }
@@ -591,7 +684,7 @@ body {
   margin: 0 auto;
 }
 
-/* ================= RULES ================= */
+/* ================= RULES TAB ================= */
 .rules-filter {
   margin-bottom: 24px;
 }
@@ -897,79 +990,7 @@ body {
   font-size: 13px;
 }
 
-/* ================= HOW TO JOIN SECTION ================= */
-.join-card {
-  background: #141419;
-  border: 1px solid #23232c;
-  border-radius: 12px;
-  padding: 24px;
-  margin-bottom: 30px;
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.join-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.join-head h2 {
-  font-size: 20px;
-  font-weight: 800;
-}
-
-.join-head p {
-  font-size: 12px;
-  color: #9ca3af;
-}
-
-.join-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-}
-
-.join-step-box {
-  background: #0d0e12;
-  border: 1px solid #1f2029;
-  border-radius: 10px;
-  padding: 18px;
-}
-
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 26px;
-  height: 26px;
-  border-radius: 6px;
-  font-weight: 800;
-  font-size: 13px;
-  margin-bottom: 10px;
-}
-
-.step-purple { background: rgba(147, 51, 234, 0.2); color: #c084fc; border: 1px solid rgba(147, 51, 234, 0.4); }
-.step-blue { background: rgba(59, 130, 246, 0.2); color: #60a5fa; border: 1px solid rgba(59, 130, 246, 0.4); }
-.step-emerald { background: rgba(16, 185, 129, 0.2); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.4); }
-
-.join-step-box h3 {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 6px;
-}
-
-.join-step-box p {
-  font-size: 12px;
-  color: #9ca3af;
-  line-height: 1.5;
-}
-
-/* ================= APPLY FORM ================= */
+/* ================= APPLY TAB ================= */
 .apply-form {
   max-width: 650px;
   margin: 0 auto;
