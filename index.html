@@ -6,7 +6,7 @@
   <title>FriendSMP - Minecraft Server Portal</title>
   <meta name="description" content="Official community portal, rules, vote rewards, and live server status for FriendSMP Minecraft Network." />
   
-  <!-- Favicon -->
+  <!-- Favicon / Logo -->
   <link rel="icon" type="image/png" href="logo.png" />
   
   <!-- Google Fonts & Font Awesome Icons -->
@@ -177,120 +177,35 @@
         </div>
       </div>
 
-      <!-- MAIN FEED CONTAINER -->
-      <div class="content-container">
-        <!-- FEATURED ANNOUNCEMENT -->
-        <article class="news-card">
-          <div class="news-header">
-            <div class="news-title-box">
-              <span class="emoji-sparkle">⚔️💎</span>
-              <h2>FRIENDSMP SEASON 1: LIFESTEAL & TOKEN ERA LAUNCH</h2>
-            </div>
-            <div class="news-author">
-              <div class="author-details">
-                <span class="author-name">Mystelwyn <span class="badge-owner">OWNER</span></span>
-                <span class="author-time">Season 1</span>
-              </div>
-              <img src="https://mc-heads.net/avatar/Mystelwyn/48" alt="Mystelwyn" class="author-avatar" />
-            </div>
-          </div>
-
-          <div class="news-body">
-            <div class="greeting">
-              <h3>🔥 Welcome to FriendSMP Network!</h3>
-              <p>FriendSMP is officially open with two signature gamemodes: <strong>Lifesteal MODE</strong> and <strong>Token MODE</strong>! Featuring balanced combat mechanics, custom token economy, clan territories, and high-performance server hosting.</p>
-            </div>
-
-            <div class="info-box">
-              <div class="info-box-header">
-                <h3>Season 1 Features:</h3>
-                <span class="badge-season">JAVA NETWORK</span>
-              </div>
-              <ul class="info-list">
-                <li>• <strong>Java Edition IP:</strong> <code style="color: #d8b4fe;">play.friendsmp.ink</code> (or <code>friendsmp.ink</code>)</li>
-                <li>• <strong>Lifesteal Mode:</strong> Steal hearts on kill, craft custom revive beacons, and dominate the warzone.</li>
-                <li>• <strong>Token Mode:</strong> Farm tokens through mob grinding, quests, and PvP to unlock exclusive enchantments and upgrades.</li>
-                <li>• <strong>Discord Community:</strong> Join us at <a href="https://discord.gg/RsJBu8jEyg" target="_blank" style="color: #60a5fa; text-decoration: underline;">discord.gg/RsJBu8jEyg</a> to participate in giveaways and community polls!</li>
-              </ul>
-            </div>
-
-            <div class="server-reminder">
-              Server IP: <strong>play.friendsmp.ink</strong> &bull; Discord: <strong>discord.gg/RsJBu8jEyg</strong>
-            </div>
-
-            <!-- Social stats & Discussion button -->
-            <div class="news-footer">
-              <div class="stats-row">
-                <span class="stat-pill"><i class="fa-solid fa-eye"></i> 12,450 Views</span>
-                <button class="stat-pill clickable" onclick="toggleComments()"><i class="fa-solid fa-comment"></i> <span id="commentsCountTxt">3</span> Comments</button>
-              </div>
-              <button class="btn-read" onclick="toggleComments()">
-                <span id="readBtnTxt">Read Discussion</span> <i class="fa-solid fa-arrow-right"></i>
-              </button>
-            </div>
-
-            <!-- Expandable Comments -->
-            <div id="expandedComments" class="expandable-section hidden">
-              <div class="comments-wrap">
-                <h4>Player Discussion (<span id="commentsHeaderCount">3</span>)</h4>
-                <form id="commentForm" onsubmit="submitComment(event)">
-                  <input type="text" id="commentInput" placeholder="Write a comment with your Minecraft username..." required />
-                  <button type="submit" class="btn-primary">Post</button>
-                </form>
-                <div id="commentsList" class="comments-list"></div>
-              </div>
-            </div>
-
-          </div>
-        </article>
-
-        <!-- GAMEMODES SHOWCASE (Lifesteal & Token Mode ONLY) -->
-        <section class="gamemodes-section">
-          <div class="section-heading">
+      <!-- HOW TO JOIN SECTION -->
+      <div class="page-container" style="margin-top: 10px;">
+        <div class="join-card">
+          <div class="join-head">
             <div>
-              <h2><i class="fa-solid fa-swords text-purple"></i> Featured Game Modes</h2>
-              <p>Play on our two signature modes: high-stakes Lifesteal PvP & deep Token economy</p>
+              <h2><i class="fa-solid fa-gamepad text-purple"></i> How to Join FriendSMP</h2>
+              <p>Connect in 3 simple steps on any Minecraft Java Edition client</p>
             </div>
+            <button class="btn-vote-coral-sm" onclick="switchTab('vote')">Vote For Free Keys <i class="fa-solid fa-arrow-right"></i></button>
           </div>
 
-          <div class="gamemodes-grid">
-            <!-- Mode 1: Lifesteal Mode -->
-            <div class="gamemode-card">
-              <div class="gamemode-thumb">
-                <img src="assets/gamemode_lifesteal_battle_1793117230087_89f834d3.jpg" alt="Lifesteal SMP" onerror="this.src='https://images.unsplash.com/photo-1579202673506-ca3ce28943ef?w=800'" />
-                <span class="badge-mode mode-red"><i class="fa-solid fa-heart"></i> Lifesteal MODE</span>
-                <span class="mode-players">● PvP Active</span>
-              </div>
-              <div class="gamemode-info">
-                <h3>High-Stakes Netherite Lifesteal</h3>
-                <p>Eliminate other players to steal their hearts. Lose all hearts and get eliminated or revived by teammates with custom Revive Beacons!</p>
-                <div class="tags-row">
-                  <span>Heart Steal</span>
-                  <span>Clan Wars</span>
-                  <span>Warzone Outposts</span>
-                </div>
-              </div>
+          <div class="join-steps-grid">
+            <div class="join-step-box">
+              <span class="step-num step-purple">1</span>
+              <h3>Launch Minecraft</h3>
+              <p>Open Minecraft Java Edition version 1.18 - 1.21.x and click on <strong>Multiplayer</strong>.</p>
             </div>
-
-            <!-- Mode 2: Token Mode -->
-            <div class="gamemode-card">
-              <div class="gamemode-thumb">
-                <img src="assets/gamemode_bedwars_arena_1793117230069_f8b08f22.jpg" alt="Token Mode Arena" onerror="this.src='https://images.unsplash.com/photo-1542751371-adc38448a05e?w=800'" />
-                <span class="badge-mode mode-amber"><i class="fa-solid fa-coins"></i> Token MODE</span>
-                <span class="mode-players">● Economy Active</span>
-              </div>
-              <div class="gamemode-info">
-                <h3>Custom Token Economy & Upgrades</h3>
-                <p>Earn tokens by grinding mobs, conquering dungeons, and trading in player marketplace. Spend tokens on rare enchantments & multipliers!</p>
-                <div class="tags-row">
-                  <span>Token Enchants</span>
-                  <span>Token Multipliers</span>
-                  <span>Black Market</span>
-                </div>
-              </div>
+            <div class="join-step-box">
+              <span class="step-num step-blue">2</span>
+              <h3>Add Server Address</h3>
+              <p>Click <strong>Add Server</strong> and type <code style="color: #c084fc; font-weight: bold;">play.friendsmp.ink</code>.</p>
+            </div>
+            <div class="join-step-box">
+              <span class="step-num step-emerald">3</span>
+              <h3>Join & Play</h3>
+              <p>Hit connect and begin your adventure on FriendSMP!</p>
             </div>
           </div>
-        </section>
+        </div>
       </div>
     </section>
 
@@ -328,138 +243,120 @@
             <p>Racism, hate speech, severe toxicity, doxxing threats, or advertising external servers.</p>
             <div class="punishment"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Punishment:</strong> 1-Day Mute → 7-Day Ban → Permanent Ban</div>
           </div>
-          <div class="rule-card">
-            <h3>#5 Token Exploits & Illegal Macros</h3>
-            <p>Using automated macro scripts or glitching token generators to bypass activity checks.</p>
-            <div class="punishment"><i class="fa-solid fa-triangle-exclamation"></i> <strong>Punishment:</strong> Token Wipe + 7-Day Temp Ban</div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 3: VOTE -->
+    <!-- TAB 3: VOTE (Exact replica of screenshot image_d125f41d.png) -->
     <section id="tab-vote" class="tab-pane">
       <div class="page-container">
-        <div class="page-header">
-          <span class="sub-badge"><i class="fa-solid fa-check-to-slot"></i> Daily Rewards</span>
-          <h1>Vote for FriendSMP</h1>
-          <p>Support our server daily on top server lists to receive free Crate Keys, Tokens, and Coins on play.friendsmp.ink!</p>
-        </div>
+        <div class="vote-apple-card">
+          <!-- Top Left Tag -->
+          <div class="vote-tag-red">Vote</div>
 
-        <div class="vote-ign-card">
-          <div class="vote-ign-left">
-            <img id="voteAvatar" src="https://mc-heads.net/avatar/Steve/64" alt="Skin" />
-            <div>
-              <span class="sub-label">Rewarding In-Game Account:</span>
-              <div class="vote-ign-input-wrap">
-                <input type="text" id="voteIgnInput" placeholder="Enter Minecraft IGN..." />
-              </div>
-            </div>
-          </div>
-          <div class="vote-streak-box">
-            <span>Your Votes:</span>
-            <strong id="userVoteCount">0 Votes</strong>
-          </div>
-        </div>
-
-        <div id="voteAlert" class="alert-box hidden"></div>
-
-        <div class="vote-sites-grid">
-          <div class="vote-card">
-            <div class="vote-card-header">
-              <span class="badge-tag">TOP RANKED</span>
-              <span>1,420 Votes</span>
-            </div>
-            <h3>Planet Minecraft (PMC)</h3>
-            <p class="reward-pill"><i class="fa-solid fa-gift"></i> 1x Mythic Key + 500 Coins</p>
-            <button class="btn-primary" onclick="recordVote('Planet Minecraft')">Vote & Claim</button>
+          <!-- Centered Title -->
+          <div class="vote-title-center">
+            <h1>Vote for FriendSMP!</h1>
           </div>
 
-          <div class="vote-card">
-            <div class="vote-card-header">
-              <span class="badge-tag">DOUBLE TOKENS</span>
-              <span>980 Votes</span>
+          <!-- Emerald Key Reward Banner -->
+          <div class="emerald-key-banner">
+            <div class="key-icon-wrap">
+              <i class="fa-solid fa-key"></i>
             </div>
-            <h3>Minecraft-MP Network</h3>
-            <p class="reward-pill"><i class="fa-solid fa-gift"></i> 50 Tokens + 1 Heart Shard</p>
-            <button class="btn-primary" onclick="recordVote('Minecraft-MP')">Vote & Claim</button>
+            <p>You can receive up to <strong>6 VOTE KEYS</strong> by voting for our server!</p>
           </div>
 
-          <div class="vote-card">
-            <div class="vote-card-header">
-              <span class="badge-tag">EXP BOOST</span>
-              <span>760 Votes</span>
+          <!-- Player IGN status bar -->
+          <div class="vote-ign-bar">
+            <div class="ign-left">
+              <img id="voteAvatar" src="https://mc-heads.net/avatar/Steve/36" alt="Skin" />
+              <span>Rewarding player: <strong id="voteTargetName" style="color: #fff; font-family: monospace;">Guest Player</strong></span>
             </div>
-            <h3>TopG Minecraft Servers</h3>
-            <p class="reward-pill"><i class="fa-solid fa-gift"></i> 500 Coins + 2x EXP Booster</p>
-            <button class="btn-primary" onclick="recordVote('TopG')">Vote & Claim</button>
+            <button class="btn-link" onclick="openLoginModal()">Login with IGN</button>
           </div>
 
-          <div class="vote-card">
-            <div class="vote-card-header">
-              <span class="badge-tag">POPULAR</span>
-              <span>630 Votes</span>
-            </div>
-            <h3>Best-Minecraft-Servers</h3>
-            <p class="reward-pill"><i class="fa-solid fa-gift"></i> 1x Rare Key + 500 Coins</p>
-            <button class="btn-primary" onclick="recordVote('Best-Minecraft-Servers')">Vote & Claim</button>
+          <div id="voteAlert" class="alert-box hidden"></div>
+
+          <!-- 6 Coral/Red Action Buttons (2 columns x 3 rows) -->
+          <div class="vote-grid-6">
+            <button class="btn-vote-coral" onclick="recordVote(1, 'https://planetminecraft.com')">
+              <span>VOTE #1</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(2, 'https://minecraft-mp.com')">
+              <span>VOTE #2</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(3, 'https://topg.org')">
+              <span>VOTE #3</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(4, 'https://best-minecraft-servers.co')">
+              <span>VOTE #4</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(5, 'https://minecraftservers.org')">
+              <span>VOTE #5</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
+            <button class="btn-vote-coral" onclick="recordVote(6, 'https://topminecraftservers.org')">
+              <span>VOTE #6</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
+            </button>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: STAFF (Mystelwyn, Habib, EvilThunder) -->
+    <!-- TAB 4: STAFF (Exact replica of screenshot image_02a3dcda.png) -->
     <section id="tab-staff" class="tab-pane">
-      <div class="page-container">
-        <div class="page-header">
-          <span class="sub-badge"><i class="fa-solid fa-crown text-amber"></i> Server Leadership</span>
-          <h1>FriendSMP Official Staff Team</h1>
-          <p>Meet the executive leadership and management team operating FriendSMP.</p>
-        </div>
-
-        <div class="staff-grid-3">
-          <!-- Mystelwyn (Owner) -->
-          <div class="staff-card-v2">
-            <div class="staff-avatar-wrap">
-              <img src="https://mc-heads.net/avatar/Mystelwyn/120" alt="Mystelwyn" onerror="this.src='https://mc-heads.net/avatar/Steve/120'" />
-              <span class="online-indicator"></span>
-            </div>
-            <h3>Mystelwyn</h3>
-            <span class="badge-owner-lg"><i class="fa-solid fa-crown"></i> OWNER</span>
-            <p class="staff-desc">Network Founder & Lead Operations</p>
-            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-discord-link">
-              <i class="fa-brands fa-discord"></i> mystelwyn
+      <div class="page-container space-y-staff">
+        
+        <!-- Category 1: Owner -->
+        <div class="staff-category-block">
+          <h2 class="staff-cat-title">Owner</h2>
+          <div class="staff-cards-grid">
+            <!-- Mystelwyn -->
+            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
+              <img src="https://mc-heads.net/avatar/Mystelwyn/56" alt="Mystelwyn" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <div class="staff-pill-info">
+                <span class="staff-pill-name">Mystelwyn</span>
+                <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> mystelwyn</span>
+              </div>
             </a>
-          </div>
 
-          <!-- Habib (Owner) -->
-          <div class="staff-card-v2">
-            <div class="staff-avatar-wrap">
-              <img src="https://mc-heads.net/avatar/Habib/120" alt="Habib" onerror="this.src='https://mc-heads.net/avatar/Steve/120'" />
-              <span class="online-indicator"></span>
-            </div>
-            <h3>Habib</h3>
-            <span class="badge-owner-lg"><i class="fa-solid fa-crown"></i> OWNER</span>
-            <p class="staff-desc">Network Founder & Systems Architect</p>
-            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-discord-link">
-              <i class="fa-brands fa-discord"></i> xho_habib
-            </a>
-          </div>
-
-          <!-- EvilThunder (Manager) -->
-          <div class="staff-card-v2">
-            <div class="staff-avatar-wrap">
-              <img src="https://mc-heads.net/avatar/EvilThunder/120" alt="EvilThunder" onerror="this.src='https://mc-heads.net/avatar/Steve/120'" />
-              <span class="online-indicator"></span>
-            </div>
-            <h3>EvilThunder</h3>
-            <span class="badge-manager-lg"><i class="fa-solid fa-shield"></i> MANAGER</span>
-            <p class="staff-desc">Server & Community Management</p>
-            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-discord-link">
-              <i class="fa-brands fa-discord"></i> evilspidgaming
+            <!-- Habib -->
+            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
+              <img src="https://mc-heads.net/avatar/Habib/56" alt="Habib" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <div class="staff-pill-info">
+                <span class="staff-pill-name">Habib</span>
+                <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> xho_habib</span>
+              </div>
             </a>
           </div>
         </div>
+
+        <!-- Category 2: Manager -->
+        <div class="staff-category-block">
+          <h2 class="staff-cat-title">Manager</h2>
+          <div class="staff-cards-grid">
+            <!-- EvilThunder -->
+            <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
+              <img src="https://mc-heads.net/avatar/EvilThunder/56" alt="EvilThunder" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <div class="staff-pill-info">
+                <span class="staff-pill-name">EvilThunder</span>
+                <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> evilspidgaming</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Discord Support Box -->
+        <div class="staff-support-box">
+          <div>
+            <h3>Need assistance from our Staff Team?</h3>
+            <p>Join our Discord to submit a ticket or talk directly with Mystelwyn, Habib, or EvilThunder.</p>
+          </div>
+          <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="btn-vote-coral-sm">
+            <i class="fa-brands fa-discord"></i> Open Discord Ticket
+          </a>
+        </div>
+
       </div>
     </section>
 
@@ -508,7 +405,7 @@
             <h3>Play Now</h3>
             <span class="title-bar"></span>
           </div>
-          <p>Start your journey today! Join the server now to play the best Lifesteal MODE and Token MODE on Java Edition!</p>
+          <p>Start your journey today! Join the server now to play the best Lifesteal and Token experience on Java Edition!</p>
           <button class="footer-ip-btn" onclick="copyServerIp()">
             <span>PLAY.FRIENDSMP.INK</span> <i class="fa-solid fa-angles-right"></i>
           </button>
