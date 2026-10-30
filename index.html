@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Home - FriendSMP</title>
+  <title>FriendSMP - Minecraft Java Server</title>
   <meta name="description" content="Join FriendSMP - The ultimate Minecraft Lifesteal & Token Java Edition server with custom economy, vote keys, and active community." />
   
-  <!-- Favicon -->
+  <!-- Favicon / Logo -->
   <link rel="icon" type="image/png" href="logo.png" />
   
   <!-- Google Fonts & Font Awesome Icons -->
@@ -30,10 +30,6 @@
         <i class="fa-solid fa-right-to-bracket"></i>
         <span class="tooltip">Player Login</span>
       </button>
-      <button class="sidebar-btn" id="sidebarRegisterBtn" title="Link Minecraft IGN">
-        <i class="fa-solid fa-user-plus"></i>
-        <span class="tooltip">Link Minecraft IGN</span>
-      </button>
     </div>
 
     <div id="sidebarLoggedIn" class="hidden">
@@ -45,11 +41,6 @@
 
     <div class="sidebar-divider"></div>
 
-    <button class="sidebar-btn" id="sidebarCopyIpBtn" title="Copy Server IP">
-      <i class="fa-solid fa-copy"></i>
-      <span class="tooltip">Copy Server IP (play.friendsmp.ink)</span>
-    </button>
-
     <a href="https://discord.gg/RsJBu8jEyg" target="_blank" rel="noopener noreferrer" class="sidebar-btn discord-btn" title="Join Discord">
       <i class="fa-brands fa-discord"></i>
       <span class="tooltip">Discord Community</span>
@@ -60,7 +51,7 @@
   <header class="navbar">
     <div class="nav-container">
       <div class="brand" onclick="switchTab('home')">
-        <img src="logo.png" alt="FriendSMP Logo" class="brand-logo" onerror="this.src='https://mc-heads.net/avatar/Mystelwyn/48'" />
+        <img src="logo.png" alt="FriendSMP Logo" class="brand-logo" onerror="this.src='https://mc-heads.net/avatar/mystelwyn/48'" />
         <span class="brand-name">Friend<span>SMP</span></span>
       </div>
 
@@ -143,10 +134,10 @@
               </div>
             </div>
 
-            <!-- Center: FriendSMP Logo -->
+            <!-- Center: FriendSMP Logo (Animated) -->
             <div class="hero-logo-box">
               <div class="logo-glow"></div>
-              <img src="logo.png" alt="FriendSMP Logo" class="hero-logo" onerror="this.src='https://mc-heads.net/avatar/Mystelwyn/160'" />
+              <img src="logo.png" alt="FriendSMP Logo" class="hero-logo" onerror="this.src='https://mc-heads.net/avatar/mystelwyn/160'" />
             </div>
 
             <!-- Right Card: REAL DISCORD ONLINE -->
@@ -171,7 +162,7 @@
           <!-- Quick Java Connection Chips -->
           <div class="port-bar">
             <span class="chip clickable" onclick="copyServerIp()"><i class="fa-solid fa-circle text-emerald"></i> Java IP: <strong>play.friendsmp.ink</strong> <i class="fa-solid fa-copy"></i></span>
-            <span class="chip"><i class="fa-solid fa-sparkles text-amber"></i> Version: <strong>Java 1.18 - 1.21.x</strong></span>
+            <span class="chip"><i class="fa-solid fa-sparkles text-amber"></i> Version: <strong>Java 1.7 - 1.21.x</strong></span>
             <span class="chip"><i class="fa-solid fa-wifi text-blue"></i> High Performance • 20 TPS</span>
           </div>
         </div>
@@ -192,7 +183,7 @@
             <div class="join-step-box">
               <span class="step-num step-purple">1</span>
               <h3>Launch Minecraft</h3>
-              <p>Open Minecraft Java Edition version 1.18 - 1.21.x and click on <strong>Multiplayer</strong>.</p>
+              <p>Open Minecraft Java Edition version 1.7 - 1.21.x and click on <strong>Multiplayer</strong>.</p>
             </div>
             <div class="join-step-box">
               <span class="step-num step-blue">2</span>
@@ -247,27 +238,18 @@
       </div>
     </section>
 
-    <!-- TAB 3: VOTE (Exact replica of image_d125f41d.png) -->
+    <!-- TAB 3: VOTE -->
     <section id="tab-vote" class="tab-pane">
       <div class="page-container">
         <div class="vote-apple-card">
-          <!-- Top Left Tag -->
           <div class="vote-tag-red">Vote</div>
-
-          <!-- Centered Title -->
           <div class="vote-title-center">
             <h1>Vote for FriendSMP!</h1>
           </div>
-
-          <!-- Emerald Key Reward Banner -->
           <div class="emerald-key-banner">
-            <div class="key-icon-wrap">
-              <i class="fa-solid fa-key"></i>
-            </div>
+            <div class="key-icon-wrap"><i class="fa-solid fa-key"></i></div>
             <p>You can receive up to <strong>6 VOTE KEYS</strong> by voting for our server!</p>
           </div>
-
-          <!-- Player IGN status bar -->
           <div class="vote-ign-bar">
             <div class="ign-left">
               <img id="voteAvatar" src="https://mc-heads.net/avatar/Steve/36" alt="Skin" />
@@ -275,89 +257,67 @@
             </div>
             <button class="btn-link" onclick="openLoginModal()">Login with IGN</button>
           </div>
-
           <div id="voteAlert" class="alert-box hidden"></div>
-
-          <!-- 6 Coral/Red Action Buttons (2 columns x 3 rows) -->
           <div class="vote-grid-6">
-            <button class="btn-vote-coral" onclick="recordVote(1, 'https://planetminecraft.com')">
-              <span>VOTE #1</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
-            <button class="btn-vote-coral" onclick="recordVote(2, 'https://minecraft-mp.com')">
-              <span>VOTE #2</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
-            <button class="btn-vote-coral" onclick="recordVote(3, 'https://topg.org')">
-              <span>VOTE #3</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
-            <button class="btn-vote-coral" onclick="recordVote(4, 'https://best-minecraft-servers.co')">
-              <span>VOTE #4</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
-            <button class="btn-vote-coral" onclick="recordVote(5, 'https://minecraftservers.org')">
-              <span>VOTE #5</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
-            <button class="btn-vote-coral" onclick="recordVote(6, 'https://topminecraftservers.org')">
-              <span>VOTE #6</span> <i class="fa-solid fa-arrow-up-right-from-square"></i>
-            </button>
+            <button class="btn-vote-coral" onclick="recordVote(1, 'https://planetminecraft.com')"><span>VOTE #1</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(2, 'https://minecraft-mp.com')"><span>VOTE #2</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(3, 'https://topg.org')"><span>VOTE #3</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(4, 'https://best-minecraft-servers.co')"><span>VOTE #4</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(5, 'https://minecraftservers.org')"><span>VOTE #5</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
+            <button class="btn-vote-coral" onclick="recordVote(6, 'https://topminecraftservers.org')"><span>VOTE #6</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></button>
           </div>
-
         </div>
       </div>
     </section>
 
-    <!-- TAB 4: STAFF (Exact replica of image_02a3dcda.png) -->
+    <!-- TAB 4: STAFF -->
     <section id="tab-staff" class="tab-pane">
       <div class="page-container space-y-staff">
-        
-        <!-- Category 1: Owner -->
         <div class="staff-category-block">
           <h2 class="staff-cat-title">Owner</h2>
           <div class="staff-cards-grid">
-            <!-- Mystelwyn -->
+            <!-- mystelwyn -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
-              <img src="https://mc-heads.net/avatar/Mystelwyn/56" alt="Mystelwyn" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <img src="mystelwyn.jpg" alt="mystelwyn" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/mystelwyn/56'" />
               <div class="staff-pill-info">
-                <span class="staff-pill-name">Mystelwyn</span>
+                <span class="staff-pill-name">mystelwyn</span>
                 <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> mystelwyn</span>
               </div>
             </a>
-
-            <!-- Habib -->
+            <!-- Habib_01 -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
-              <img src="https://mc-heads.net/avatar/Habib/56" alt="Habib" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <img src="habib.jpg" alt="Habib_01" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Habib_01/56'" />
               <div class="staff-pill-info">
-                <span class="staff-pill-name">Habib</span>
+                <span class="staff-pill-name">Habib_01</span>
                 <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> xho_habib</span>
               </div>
             </a>
           </div>
         </div>
 
-        <!-- Category 2: Manager -->
         <div class="staff-category-block">
           <h2 class="staff-cat-title">Manager</h2>
           <div class="staff-cards-grid">
-            <!-- EvilThunder -->
+            <!-- X_HER0 -->
             <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="staff-pill-card">
-              <img src="https://mc-heads.net/avatar/EvilThunder/56" alt="EvilThunder" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
+              <img src="https://mc-heads.net/avatar/X_HER0/56" alt="X_HER0" class="staff-skin" onerror="this.src='https://mc-heads.net/avatar/Steve/56'" />
               <div class="staff-pill-info">
-                <span class="staff-pill-name">EvilThunder</span>
+                <span class="staff-pill-name">X_HER0</span>
                 <span class="staff-pill-disc"><i class="fa-brands fa-discord"></i> evilspidgaming</span>
               </div>
             </a>
           </div>
         </div>
 
-        <!-- Support Box -->
         <div class="staff-support-box">
           <div>
             <h3>Need assistance from our Staff Team?</h3>
-            <p>Join our Discord to submit a ticket or talk directly with Mystelwyn, Habib, or EvilThunder.</p>
+            <p>Join our discord server if need anyhelp etc</p>
           </div>
           <a href="https://discord.gg/RsJBu8jEyg" target="_blank" class="btn-vote-coral-sm">
             <i class="fa-brands fa-discord"></i> Open Discord Ticket
           </a>
         </div>
-
       </div>
     </section>
 
@@ -406,7 +366,7 @@
             <h3>Play Now</h3>
             <span class="title-bar"></span>
           </div>
-          <p>Start your journey today! Join the server now to play the best Lifesteal MODE and Token MODE on Java Edition!</p>
+          <p>Start your journey today! Join the server now to play the best Lifesteal and Token experience on Java Edition!</p>
           <button class="footer-ip-btn" onclick="copyServerIp()">
             <span>PLAY.FRIENDSMP.INK</span> <i class="fa-solid fa-angles-right"></i>
           </button>
@@ -455,7 +415,6 @@
     <div class="pika-login-card" onclick="event.stopPropagation()">
       <button class="pika-close" onclick="closeLoginModal()"><i class="fa-solid fa-xmark"></i></button>
 
-      <!-- Purple Top Banner with Steve & Title -->
       <div class="pika-modal-header">
         <div class="pika-header-text">
           <span class="pika-store-tag">FRIENDSMP STORE</span>
@@ -466,7 +425,6 @@
         </div>
       </div>
 
-      <!-- White Bottom Section -->
       <div class="pika-modal-body">
         <form onsubmit="handleUsernameLogin(event)">
           <div class="pika-input-group">
@@ -483,9 +441,9 @@
           <div class="quick-accounts" style="margin-bottom: 12px;">
             <span style="font-size: 11px; color: #64748b;">Quick Test Accounts:</span>
             <div class="quick-btns" style="margin-top: 4px;">
-              <button type="button" onclick="selectDemoUser('Mystelwyn')">Mystelwyn [OWNER]</button>
-              <button type="button" onclick="selectDemoUser('Habib')">Habib [OWNER]</button>
-              <button type="button" onclick="selectDemoUser('EvilThunder')">EvilThunder [MANAGER]</button>
+              <button type="button" onclick="selectDemoUser('mystelwyn')">mystelwyn [OWNER]</button>
+              <button type="button" onclick="selectDemoUser('Habib_01')">Habib_01 [OWNER]</button>
+              <button type="button" onclick="selectDemoUser('X_HER0')">X_HER0 [MANAGER]</button>
             </div>
           </div>
 
